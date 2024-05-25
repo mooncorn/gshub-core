@@ -1,1 +1,1 @@
-# gshub core library
+# gshub-core
