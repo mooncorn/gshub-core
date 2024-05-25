@@ -1,4 +1,4 @@
-module github.com/mooncorn/gshub/core
+module github.com/mooncorn/gshub-core
 
 go 1.22.3
 
