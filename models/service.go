@@ -6,22 +6,18 @@ import (
 	"gorm.io/gorm"
 )
 
-type ImageVariableConfigurationType string
-
-const (
-	MemoryConfigurationType ImageVariableConfigurationType = "MEMORY"
-	ServerConfigurationType ImageVariableConfigurationType = "SERVER"
-)
-
-type ImageVariable struct {
-	ID                uint                           `gorm:"primaryKey" json:"id"`
-	CreatedAt         time.Time                      `json:"createdAt"`
-	UpdatedAt         time.Time                      `json:"updatedAt"`
-	DeletedAt         gorm.DeletedAt                 `gorm:"index" json:"deletedAt,omitempty"`
-	Name              string                         `gorm:"uniqueIndex,not null" json:"name"` // Unique identifier
-	Required          bool                           `gorm:"not null"`
-	Description       string                         `gorm:"not null"`
-	Default           string                         `gorm:"not null"`
-	Category          string                         `gorm:"not null"`
-	ConfigurationType ImageVariableConfigurationType `gorm:"not null"`
+// Service represents a service that can be part of a plan
+type Service struct {
+	ID        uint           `gorm:"primaryKey" json:"id"`
+	CreatedAt time.Time      `json:"createdAt"`
+	UpdatedAt time.Time      `json:"updatedAt"`
+	DeletedAt gorm.DeletedAt `gorm:"index" json:"deletedAt,omitempty"`
+	NameID    string         `gorm:"uniqueIndex" json:"nameId"` // Unique identifier
+	MinMem    int            `gorm:"not null" json:"minMem"`    // Minimum memory required in MB
+	RecMem    int            `gorm:"not null" json:"recMem"`    // Recommended memory in MB
+	Name      string         `gorm:"not null" json:"name"`      // Short name of the service
+	NameLong  string         `gorm:"not null" json:"nameLong"`  // Full name of the service
+	Image     string         `gorm:"not null" json:"image"`     // Image of the docker container
+	Volume    string         `gorm:"not null" json:"volume"`    // Volume information
+	Ports     string         `gorm:"not null" json:"ports"`     // Ports information
 }
