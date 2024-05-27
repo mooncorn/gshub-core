@@ -11,6 +11,7 @@ type ImageEnvType struct {
 	CreatedAt   time.Time      `json:"createdAt"`
 	UpdatedAt   time.Time      `json:"updatedAt"`
 	DeletedAt   gorm.DeletedAt `gorm:"index" json:"deletedAt,omitempty"`
+	ServiceID   uint           `json:"serviceId"`
 	Name        string         `gorm:"not null" json:"name"`
 	Key         string         `gorm:"uniqueIndex,not null" json:"key"`
 	Required    bool           `gorm:"not null" json:"required"`
