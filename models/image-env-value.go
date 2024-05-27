@@ -11,6 +11,6 @@ type ImageEnvValue struct {
 	CreatedAt      time.Time      `json:"createdAt"`
 	UpdatedAt      time.Time      `json:"updatedAt"`
 	DeletedAt      gorm.DeletedAt `gorm:"index" json:"deletedAt,omitempty"`
-	ImageEnvTypeID uint
-	Value          string
+	ImageEnvTypeID uint           `json:"-"`
+	Value          string         `json:"value"`
 }
