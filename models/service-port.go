@@ -15,4 +15,5 @@ type ServicePort struct {
 	ContainerPort int            `gorm:"not null" json:"containerPort"` // Container host number
 	HostPort      int            `gorm:"not null" json:"hostPort"`      // Host port number
 	Description   string         `gorm:"not null" json:"description"`
+	Protocol      string         `json:"protocol"`
 }
