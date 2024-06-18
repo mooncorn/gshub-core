@@ -1,6 +1,7 @@
 package middlewares
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"os"
@@ -8,6 +9,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/mooncorn/gshub-core/utils"
 )
 
 // CheckUser middleware checks for the authorization header and attaches the user's email to the context.
@@ -52,7 +54,7 @@ func AuthMiddleware(c *gin.Context) {
 	// Retrieve the Authorization header
 	authHeader := c.GetHeader("Authorization")
 	if authHeader == "" {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Authorization header is missing"})
+		utils.HandleError(c, http.StatusUnauthorized, "Access unauthorized", errors.New("authorization header is missing"), "null")
 		c.Abort()
 		return
 	}
@@ -60,7 +62,7 @@ func AuthMiddleware(c *gin.Context) {
 	// Check if the token has the correct prefix and extract the token part
 	const bearerPrefix = "Bearer "
 	if !strings.HasPrefix(authHeader, bearerPrefix) {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid Authorization header format"})
+		utils.HandleError(c, http.StatusUnauthorized, "Access unauthorized", errors.New("invalid authorization header format"), "null")
 		c.Abort()
 		return
 	}
@@ -77,7 +79,7 @@ func AuthMiddleware(c *gin.Context) {
 	})
 
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Failed to parse token: " + err.Error()})
+		utils.HandleError(c, http.StatusUnauthorized, "Access unauthorized", err, "null")
 		c.Abort()
 		return
 	}
@@ -87,12 +89,12 @@ func AuthMiddleware(c *gin.Context) {
 		if email, exists := claims["email"]; exists {
 			c.Set("userEmail", email)
 		} else {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Email claim is missing in the token"})
+			utils.HandleError(c, http.StatusUnauthorized, "Access unauthorized", errors.New("email claim is missing in the token"), "null")
 			c.Abort()
 			return
 		}
 	} else {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
+		utils.HandleError(c, http.StatusUnauthorized, "Access unauthorized", errors.New("invalid token"), "null")
 		c.Abort()
 		return
 	}
