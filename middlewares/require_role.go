@@ -10,7 +10,7 @@ import (
 )
 
 // Ensures that the user's role is correct.
-func RequireRole(c *gin.Context, role models.UserRole) func(c *gin.Context) {
+func RequireRole(role models.UserRole) func(c *gin.Context) {
 	return func(c *gin.Context) {
 		userRole, exists := c.Get("userRole")
 		if !exists {
