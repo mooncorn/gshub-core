@@ -8,10 +8,6 @@ import (
 )
 
 type ServiceConfiguration struct {
-	Minecraft Minecraft `json:"minecraft"`
-}
-
-type Minecraft struct {
 	Env     []Env    `json:"env"`
 	Ports   []Port   `json:"ports"`
 	Volumes []Volume `json:"volumes"`
@@ -41,9 +37,9 @@ type Volume struct {
 	Destination string `json:"destination"`
 }
 
-func GetServiceConfiguration() (*ServiceConfiguration, error) {
+func GetServiceConfiguration(serviceNameID string) (*ServiceConfiguration, error) {
 	// Open the JSON file
-	jsonFile, err := os.Open("service-configuration.json")
+	jsonFile, err := os.Open("service-configurations.json")
 	if err != nil {
 		return nil, fmt.Errorf("failed to open json file: %v", err)
 	}
@@ -56,10 +52,15 @@ func GetServiceConfiguration() (*ServiceConfiguration, error) {
 	}
 
 	// Unmarshal the JSON content into ServiceConfiguration struct
-	var config ServiceConfiguration
-	if err := json.Unmarshal(byteValue, &config); err != nil {
+	var configs map[string]ServiceConfiguration
+	if err := json.Unmarshal(byteValue, &configs); err != nil {
 		return nil, fmt.Errorf("failed to unmarshal json content: %v", err)
 	}
 
-	return &config, nil
+	serviceConfig, exists := configs[serviceNameID]
+	if !exists {
+		return nil, fmt.Errorf("config for this service name id not found: %s: %v", serviceNameID, err)
+	}
+
+	return &serviceConfig, nil
 }
