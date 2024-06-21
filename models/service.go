@@ -18,8 +18,4 @@ type Service struct {
 	Name      string         `gorm:"not null" json:"name"`      // Short name of the service
 	NameLong  string         `gorm:"not null" json:"nameLong"`  // Full name of the service
 	Image     string         `gorm:"not null" json:"-"`         // Image of the docker container
-
-	Volumes []ServiceVolume `json:"volumes"` // Volume information
-	Ports   []ServicePort   `json:"ports"`   // Ports information
-	Env     []ServiceEnv    `json:"env"`
 }

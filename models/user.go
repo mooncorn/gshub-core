@@ -6,17 +6,13 @@ import (
 	"gorm.io/gorm"
 )
 
-// UserRole defines a custom type for user roles
 type UserRole string
 
-// Constants for different user roles
 const (
-	Admin     UserRole = "ADMIN"
-	Moderator UserRole = "MODERATOR"
-	Default   UserRole = "USER"
+	Admin   UserRole = "admin"
+	Default UserRole = "user"
 )
 
-// User represents a user in the system
 type User struct {
 	ID        uint           `gorm:"primaryKey" json:"id"`
 	CreatedAt time.Time      `json:"createdAt"`

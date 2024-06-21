@@ -11,8 +11,8 @@ type GormDB struct {
 	DB *gorm.DB
 }
 
-func NewGormDB(dsn string) *GormDB {
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+func NewGormDB(dsn string, config *gorm.Config) *GormDB {
+	db, err := gorm.Open(postgres.Open(dsn), config)
 	if err != nil {
 		log.Fatal("Failed to connect to database:", err)
 	}
@@ -21,12 +21,4 @@ func NewGormDB(dsn string) *GormDB {
 
 func (g *GormDB) GetDB() *gorm.DB {
 	return g.DB
-}
-
-func (g *GormDB) Close() error {
-	sqlDB, err := g.DB.DB()
-	if err != nil {
-		return err
-	}
-	return sqlDB.Close()
 }

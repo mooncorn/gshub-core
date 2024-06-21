@@ -16,7 +16,7 @@ type Plan struct {
 	Name         string         `gorm:"not null" json:"name"`         // Name of the plan
 	VCores       int            `gorm:"not null" json:"vCores"`       // Number of virtual cores
 	Memory       int            `gorm:"not null" json:"memory"`       // Amount of memory in MB
-	Price        float64        `gorm:"not null" json:"price"`        // Price of the plan per month
+	Price        float64        `gorm:"not null" json:"price"`        // Price of the plan per hour
 	Disk         int            `gorm:"not null" json:"disk"`         // Disk space in GB
 	Enabled      bool           `gorm:"not null" json:"enabled"`      // Indicates if the plan is enabled
 }
