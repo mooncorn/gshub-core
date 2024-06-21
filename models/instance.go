@@ -15,11 +15,12 @@ type Instance struct {
 	RealID    string         `gorm:"not null" json:"realId"`
 	Name      string         `json:"name"`
 
-	IsRunning          bool      `gorm:"not null" json:"isRunning"`
-	IsRunningUpdatedAt time.Time `gorm:"not null" json:"isRunningUpdatedAt"`
-	PublicIP           string    `json:"publicIp"`
+	Ready bool `json:"ready"`
 
 	ServiceID uint `gorm:"not null" json:"serviceId"` // Reference to the service
 	PlanID    uint `gorm:"not null" json:"planId"`    // Reference to the plan
 	UserID    uint `gorm:"not null" json:"userId"`    // Reference to the user
+
+	Cycles       []InstanceCycles       `json:"cycles"`
+	BurnedCycles []InstanceBurnedCycles `json:"burnedCycles"`
 }
