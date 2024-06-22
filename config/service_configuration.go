@@ -23,14 +23,14 @@ type Env struct {
 }
 
 type Value struct {
-	Name     string `json:"name"`
-	Value    string `json:"value"`
-	Protocol string `json:"protocol"`
+	Name  string `json:"name"`
+	Value string `json:"value"`
 }
 
 type Port struct {
-	Host      int64 `json:"host"`
-	Container int64 `json:"container"`
+	Host      int64  `json:"host"`
+	Container int64  `json:"container"`
+	Protocol  string `json:"protocol"`
 }
 
 type Volume struct {
