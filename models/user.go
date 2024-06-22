@@ -20,5 +20,4 @@ type User struct {
 	DeletedAt gorm.DeletedAt `gorm:"index" json:"deletedAt,omitempty"`
 	Email     string         `gorm:"uniqueIndex;not null" json:"email"` // Ensures email is unique and not null
 	Role      UserRole       `gorm:"not null" json:"role"`              // Ensures role is not null
-	Balance   float64        `gorm:"not null" json:"balance"`
 }

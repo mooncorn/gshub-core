@@ -18,3 +18,11 @@ func (r *UserRepository) GetUserByEmail(email string) (*models.User, error) {
 	err := r.DB.Where(&models.User{Email: email}).First(&user).Error
 	return &user, err
 }
+
+func (r *UserRepository) CreateUser(user *models.User) error {
+	return r.DB.Create(user).Error
+}
+
+func (r *UserRepository) UpdateUser(existingUser *models.User, updatedUser *models.User) error {
+	return r.DB.Model(&existingUser).Updates(*updatedUser).Error
+}
