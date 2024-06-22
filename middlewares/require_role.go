@@ -3,23 +3,18 @@ package middlewares
 import (
 	"errors"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/mooncorn/gshub-core/models"
 	"github.com/mooncorn/gshub-core/utils"
 )
 
 // Ensures that the user's role is correct.
-func RequireRole(role models.UserRole) func(c *gin.Context) {
+func RequireRole(role string) func(c *gin.Context) {
 	return func(c *gin.Context) {
-		userRole, exists := c.Get("userRole")
-		if !exists {
-			utils.HandleError(c, http.StatusUnauthorized, "Access unauthorized", errors.New("failed to require user role: role is missing"), "null")
-			c.Abort()
-			return
-		}
+		userRole := c.GetString("userRole")
 
-		if userRole != role {
+		if !strings.EqualFold(userRole, role) {
 			utils.HandleError(c, http.StatusUnauthorized, "Access unauthorized", errors.New("failed to require user role: role is invalid"), "null")
 			c.Abort()
 			return
