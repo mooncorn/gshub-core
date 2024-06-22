@@ -38,6 +38,9 @@ func CheckUser(c *gin.Context) {
 	}
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		if role, exists := claims["id"].(string); exists {
+			c.Set("userID", role)
+		}
 		if email, exists := claims["email"].(string); exists {
 			c.Set("userEmail", email)
 		}
