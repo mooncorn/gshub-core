@@ -63,7 +63,8 @@
     "ports": [
       {
         "host": 25565,
-        "container": 25565
+        "container": 25565,
+        "protocol": "tcp"
       }
     ],
     "volumes": [

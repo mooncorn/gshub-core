@@ -23,8 +23,9 @@ type Env struct {
 }
 
 type Value struct {
-	Name  string `json:"name"`
-	Value string `json:"value"`
+	Name     string `json:"name"`
+	Value    string `json:"value"`
+	Protocol string `json:"protocol"`
 }
 
 type Port struct {
