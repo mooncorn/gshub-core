@@ -11,7 +11,7 @@ import (
 // Ensures that the user's email is present in the context.
 func RequireUser(c *gin.Context) {
 	_, userEmailExists := c.Get("userEmail")
-	_, userRoleExists := c.Get("userRoles")
+	_, userRoleExists := c.Get("userRole")
 
 	userExists := userEmailExists && userRoleExists
 
